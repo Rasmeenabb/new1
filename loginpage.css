@@ -1,0 +1,150 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #F3EDE7; /* Soft light beige */
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.left {
+  flex: 1;
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #FFFFFF;
+}
+
+.right {
+  flex: 1;
+  background-color: #8B5E3C; /* Brown */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right img {
+  width: 75%;
+  max-width: 500px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.logo-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 600;
+  color: #800000; /* Maroon */
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #800000; /* Maroon */
+}
+
+.left p {
+  color: #8B5E3C; /* Brown */
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+label {
+  font-size: 14px;
+  color: #800000; /* Maroon */
+  margin-bottom: 4px;
+}
+
+input[type="email"],
+input[type="password"] {
+  padding: 12px 16px;
+  border: 1px solid #D6C4B3;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #FFFFFF;
+  color: #1E1E1E;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #800000; /* Maroon */
+}
+
+.options a {
+  color: #8B5E3C; /* Brown */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.primary-btn {
+  background-color: #800000; /* Maroon */
+  color: #FFFFFF;
+  font-size: 14px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #D6C4B3;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+  background-color: #FFFFFF;
+  margin-top: 8px;
+  color: #8B5E3C;
+}
+
+.signup {
+  margin-top: 24px;
+  font-size: 14px;
+  color: #8B5E3C;
+}
+
+.signup a {
+  color: #8B5E3C;
+  font-weight: 500;
+  text-decoration: none;
+}

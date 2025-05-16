@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Alerts - EduConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: maroon;
+            margin-bottom: 10px;
+        }
+
+        .alert-form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: maroon;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .back-button {
+            background-color: #666;
+            margin-bottom: 20px;
+        }
+
+        .current-class {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid maroon;
+        }
+
+        .teacher-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .teacher-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #666;
+        }
+
+        .notification-history {
+            margin-top: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .urgent-checkbox {
+            margin-top: 10px;
+        }
+
+        #urgentCheck {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+        }
+
+        .tab-button.active {
+            background: maroon;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .notification-badge {
+            background: #ff4444;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .student-notifications {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .notification-card {
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .notification-card.event {
+            border-left-color: #4CAF50;
+        }
+
+        .notification-card.reschedule {
+            border-left-color: #FF9800;
+        }
+
+        .notification-card.termination {
+            border-left-color: #f44336;
+        }
+
+        .notification-time {
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .notification-actions {
+            margin-top: 10px;
+        }
+
+        .action-button {
+            padding: 5px 10px;
+            font-size: 12px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .acknowledge-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .details-btn {
+            background: #2196F3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="window.location.href='index.html'">← Back to Home</button>
+        
+        <div class="header">
+            <h1>Class Alerts</h1>
+            <p>Stay updated with class notifications and alerts</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('teacherAlerts')">
+                Send Teacher Alerts
+                <span class="notification-badge" id="teacherAlertsBadge">0</span>
+            </button>
+            <button class="tab-button" onclick="switchTab('studentNotifications')">
+                Student Notifications
+                <span class="notification-badge" id="studentNotifBadge">0</span>
+            </button>
+        </div>
+
+        <div id="teacherAlerts" class="tab-content active">
+            <div class="current-class" id="currentClassInfo">
+                <h3>Current Period</h3>
+                <div id="currentPeriodInfo">Loading current period...</div>
+                <div class="teacher-info">
+                    <div class="teacher-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <strong id="currentTeacher">Loading teacher info...</strong>
+                        <div id="subjectInfo">Loading subject info...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-form">
+                <h2>Send Alert</h2>
+                <form id="alertForm">
+                    <div class="form-group">
+                        <label for="alertType">Alert Type</label>
+                        <select id="alertType" required>
+                            <option value="">Select alert type</option>
+                            <option value="attendance">Attendance Related</option>
+                            <option value="emergency">Emergency</option>
+                            <option value="query">Student Query</option>
+                            <option value="technical">Technical Issue</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alertMessage">Message</label>
+                        <textarea id="alertMessage" rows="4" placeholder="Enter your message here..." required></textarea>
+                    </div>
+
+                    <div class="urgent-checkbox">
+                        <input type="checkbox" id="urgentCheck">
+                        <label for="urgentCheck" style="display: inline;">Mark as Urgent</label>
+                    </div>
+
+                    <button type="submit">Send Alert</button>
+                </form>
+            </div>
+
+            <div class="notification-history">
+                <h2>Recent Alerts</h2>
+                <div id="alertHistory">
+                    <!-- Alert history will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="studentNotifications" class="tab-content">
+            <div class="student-notifications">
+                <h2>Your Notifications</h2>
+                <div id="studentNotificationsList">
+                    <!-- Student notifications will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulated current period data (in real app, this would come from your backend)
+        const schedule = {
+            'Monday': [
+                { time: '09:00-09:55', teacher: 'Prof Fathimath Raihan', subject: 'TECHNOLOGIES OF RENEWABLE ENERGY' },
+                { time: '09:55-10:50', teacher: 'Dr Sharmila Kumari', subject: 'COMPUTER VISION' },
+                { time: '11:05-12:00', teacher: 'Dr Sayed Abdulhayan', subject: 'CLOUD COMPUTING' },
+                { time: '12:00-12:55', teacher: 'Miss Saniya P M', subject: 'MACHINE LEARNING' }
+            ]
+            // Add other days similarly
+        };
+
+        function getCurrentPeriod() {
+            const now = new Date();
+            const day = now.toLocaleDateString('en-US', { weekday: 'long' });
+            const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+
+            // For demo purposes, always show first period
+            return schedule[day]?.[0] || { 
+                time: '09:00-09:55',
+                teacher: 'Prof Fathimath Raihan',
+                subject: 'TECHNOLOGIES OF RENEWABLE ENERGY'
+            };
+        }
+
+        function updateCurrentClass() {
+            const currentPeriod = getCurrentPeriod();
+            document.getElementById('currentPeriodInfo').textContent = `Time: ${currentPeriod.time}`;
+            document.getElementById('currentTeacher').textContent = currentPeriod.teacher;
+            document.getElementById('subjectInfo').textContent = currentPeriod.subject;
+        }
+
+        function addToHistory(alert) {
+            const historyDiv = document.getElementById('alertHistory');
+            const alertElement = document.createElement('div');
+            alertElement.className = 'notification-item';
+            alertElement.innerHTML = `
+                <div>
+                    <strong>${alert.type}</strong>
+                    <p>${alert.message}</p>
+                    <small>${new Date().toLocaleTimeString()}</small>
+                </div>
+                <span class="notification-status">Sent</span>
+            `;
+            historyDiv.insertBefore(alertElement, historyDiv.firstChild);
+        }
+
+        document.getElementById('alertForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const alertType = document.getElementById('alertType').value;
+            const message = document.getElementById('alertMessage').value;
+            const isUrgent = document.getElementById('urgentCheck').checked;
+
+            // In a real application, you would send this to your backend
+            const alert = {
+                type: alertType,
+                message: message,
+                urgent: isUrgent,
+                teacher: document.getElementById('currentTeacher').textContent,
+                subject: document.getElementById('subjectInfo').textContent,
+                timestamp: new Date()
+            };
+
+            // Simulate sending notification
+            console.log('Sending alert:', alert);
+            
+            // Show success message
+            addToHistory(alert);
+            
+            // Reset form
+            this.reset();
+
+            // Show confirmation
+            const confirmMessage = isUrgent ? 
+                'Urgent alert sent successfully!' : 
+                'Alert sent successfully!';
+            alert(confirmMessage);
+        });
+
+        // Update current class info when page loads
+        updateCurrentClass();
+
+        // Update every minute
+        setInterval(updateCurrentClass, 60000);
+
+        // Sample student notifications data
+        const studentNotifications = [
+            {
+                type: 'event',
+                title: 'Technical Symposium',
+                message: 'Annual technical symposium scheduled for next week. Register now!',
+                time: '2024-02-20 10:00',
+                acknowledged: false
+            },
+            {
+                type: 'reschedule',
+                title: 'Cloud Computing Class Rescheduled',
+                message: 'Tomorrow\'s Cloud Computing class has been rescheduled to 2:00 PM',
+                time: '2024-02-19 15:30',
+                acknowledged: false
+            },
+            {
+                type: 'termination',
+                title: 'Machine Learning Class Cancelled',
+                message: 'Today\'s Machine Learning class has been cancelled due to faculty meeting',
+                time: '2024-02-19 08:00',
+                acknowledged: false
+            }
+        ];
+
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Deactivate all tab buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Activate selected tab button
+            event.currentTarget.classList.add('active');
+        }
+
+        function updateNotificationBadges() {
+            const unacknowledgedTeacher = document.querySelectorAll('#alertHistory .notification-item').length;
+            const unacknowledgedStudent = studentNotifications.filter(n => !n.acknowledged).length;
+            
+            document.getElementById('teacherAlertsBadge').textContent = unacknowledgedTeacher;
+            document.getElementById('studentNotifBadge').textContent = unacknowledgedStudent;
+        }
+
+        function displayStudentNotifications() {
+            const notificationsList = document.getElementById('studentNotificationsList');
+            notificationsList.innerHTML = '';
+
+            studentNotifications.forEach((notification, index) => {
+                const notificationCard = document.createElement('div');
+                notificationCard.className = `notification-card ${notification.type}`;
+                notificationCard.innerHTML = `
+                    <h3>${notification.title}</h3>
+                    <p>${notification.message}</p>
+                    <div class="notification-time">
+                        <i class="fas fa-clock"></i> ${new Date(notification.time).toLocaleString()}
+                    </div>
+                    <div class="notification-actions">
+                        ${!notification.acknowledged ? 
+                            `<button class="action-button acknowledge-btn" onclick="acknowledgeNotification(${index})">
+                                <i class="fas fa-check"></i> Acknowledge
+                            </button>` : 
+                            '<span style="color: #4CAF50;"><i class="fas fa-check-circle"></i> Acknowledged</span>'
+                        }
+                        <button class="action-button details-btn" onclick="showNotificationDetails(${index})">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                    </div>
+                `;
+                notificationsList.appendChild(notificationCard);
+            });
+        }
+
+        function acknowledgeNotification(index) {
+            studentNotifications[index].acknowledged = true;
+            displayStudentNotifications();
+            updateNotificationBadges();
+        }
+
+        function showNotificationDetails(index) {
+            const notification = studentNotifications[index];
+            alert(`
+                ${notification.title}
+                
+                ${notification.message}
+                
+                Time: ${new Date(notification.time).toLocaleString()}
+                Type: ${notification.type.charAt(0).toUpperCase() + notification.type.slice(1)}
+                Status: ${notification.acknowledged ? 'Acknowledged' : 'Pending'}
+            `);
+        }
+
+        // Initialize the student notifications
+        displayStudentNotifications();
+        updateNotificationBadges();
+
+        // Update the addToHistory function to update badges
+        const originalAddToHistory = addToHistory;
+        addToHistory = function(alert) {
+            originalAddToHistory(alert);
+            updateNotificationBadges();
+        };
+
+        // Add notification sound
+        function playNotificationSound() {
+            const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-software-interface-remove-2576.mp3');
+            audio.play();
+        }
+
+        // Simulate receiving new notifications periodically
+        setInterval(() => {
+            const types = ['event', 'reschedule', 'termination'];
+            const type = types[Math.floor(Math.random() * types.length)];
+            const newNotification = {
+                type: type,
+                title: `New ${type.charAt(0).toUpperCase() + type.slice(1)} Notification`,
+                message: `This is a new ${type} notification for testing purposes.`,
+                time: new Date().toISOString(),
+                acknowledged: false
+            };
+            studentNotifications.unshift(newNotification);
+            displayStudentNotifications();
+            updateNotificationBadges();
+            playNotificationSound();
+        }, 300000); // Every 5 minutes
+    </script>
+</body>
+</html> 

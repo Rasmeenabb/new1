@@ -3,42 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - EduConnect</title>
+  <title>EduConnect - Auth</title>
   <link rel="stylesheet" href="loginpage.css" />
+  <script src="loginpage.js"></script>
 </head>
 <body>
   <div class="container">
     <div class="left">
       <div class="logo"> 
-        <img src="assets\1.jpg" alt="logo" class="logo-icon" />
+        <img src="assets/1.jpg" alt="logo" class="logo-icon" />
         <span class="brand">EduConnect</span>
       </div>
-      <h1>Welcome back</h1>
-      <p>Please enter your details</p>
-      <form>
-        <label for="email">Email address</label>
-        <input type="email" id="email" placeholder="Enter your email" required />
-        
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="••••••••" required />
-        
-        <div class="options">
-          <label><input type="checkbox" /> Remember for 30 days</label>
-          <a href="#">Forgot password</a>
-        </div>
-        
-        <button type="submit" class="primary-btn">Sign in</button>
-        <div class="google-btn">
-          <img src="https://img.icons8.com/color/16/000000/google-logo.png" />
-          Sign in with Google
-        </div>
-      </form>
-      <p class="signup">Don’t have an account? <a href="#">Sign up</a></p>
+
+      <div id="forms">
+        <!-- Sign In Form -->
+        <form id="signin-form" class="auth-form">
+          <h1>Welcome back</h1>
+          <p>Please enter your details</p>
+          <label for="signin-email">Email address</label>
+          <input type="email" id="signin-email" placeholder="Enter your email" required />
+
+          <label for="signin-password">Password</label>
+          <input type="password" id="signin-password" placeholder="••••••••" required />
+
+          <div class="options">
+            <label><input type="checkbox" /> Remember for 30 days</label>
+            <a href="#">Forgot password</a>
+          </div>
+
+          <button type="submit" class="primary-btn">Sign in</button>
+          <div class="google-btn">
+            <img src="https://img.icons8.com/color/16/000000/google-logo.png" />
+            Sign in with Google
+          </div>
+          <p class="toggle-text">Don’t have an account? <a href="#" onclick="toggleForm('signup')">Sign up</a></p>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form id="signup-form" class="auth-form hidden">
+          <h1>Create an account</h1>
+          <p>Please fill in the details</p>
+          <label for="signup-name">Full Name</label>
+          <input type="text" id="signup-name" placeholder="Enter your full name" required />
+
+          <label for="signup-email">Email address</label>
+          <input type="email" id="signup-email" placeholder="Enter your email" required />
+
+          <label for="signup-password">Password</label>
+          <input type="password" id="signup-password" placeholder="Create a password" required />
+
+          <button type="submit" class="primary-btn">Sign up</button>
+          <div class="google-btn">
+            <img src="https://img.icons8.com/color/16/000000/google-logo.png" />
+            Sign up with Google
+          </div>
+          <p class="toggle-text">Already have an account? <a href="#" onclick="toggleForm('signin')">Sign in</a></p>
+        </form>
+      </div>
     </div>
-    
+
     <div class="right">
-      <img src="assets\1.jpg" alt="vector" />
+      <img src="assets/1.jpg" alt="vector" />
     </div>
   </div>
-</body>
+
+  <script>
+    function toggleForm(formType) {
+      document.getElementById("signin-form").classList.toggle("hidden", formType === 'signup');
+      document.getElementById("signup-form").classList.toggle("hidden", formType === 'signin');
+    }
+  </script>
+ </body>
 </html>

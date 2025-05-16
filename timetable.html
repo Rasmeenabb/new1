@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Class Timetable</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .tabs {
+      display: flex;
+      background-color: #fff;
+      border-bottom: 2px solid #ccc;
+    }
+
+    .tabs button {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-weight: bold;
+      background-color: #a15e5e;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .tabs button.active {
+      background-color: #003f4d;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+      background-color: white;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #e0d4d4;
+    }
+
+    tr.highlight {
+      background-color: #003f4d;
+      color: #fff;
+    }
+
+    .faculty-icon {
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tabs">
+    <button class="tablink active" onclick="openTab(event, 'Monday')">Monday</button>
+    <button class="tablink" onclick="openTab(event, 'Tuesday')">Tuesday</button>
+    <button class="tablink" onclick="openTab(event, 'Wednesday')">Wednesday</button>
+    <button class="tablink" onclick="openTab(event, 'Thursday')">Thursday</button>
+    <button class="tablink" onclick="openTab(event, 'Friday')">Friday</button>
+    <button class="tablink" onclick="openTab(event, 'Saturday')">Saturday</button>
+  </div>
+
+  <!-- Monday -->
+  <div id="Monday" class="tab-content active">
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>Course</th>
+        <th>Room #</th>
+        <th>Faculty</th>
+      </tr>
+      <tr>
+        <td>09:00 AM - 09:55 AM</td>
+        <td>TECHNOLOGIES OF RENEWABLE ENERGY<br>BEE654B</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Prof Fathimath Raihan</td>
+      </tr>
+      <tr>
+        <td>09:55 AM - 10:50 AM</td>
+        <td>COMPUTER VISION<br>BCS613B</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Dr Sharmila Kumari</td>
+      </tr>
+      <tr>
+        <td>11:05 AM - 12:00 PM</td>
+        <td>CLOUD COMPUTING<br>BCS601</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Dr Sayed Abdulhayan</td>
+      </tr>
+      <tr>
+        <td>12:00 PM - 12:55 PM</td>
+        <td>MACHINE LEARNING<br>BCS602</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Miss Saniya P M</td>
+      </tr>
+      <tr class="highlight">
+        <td>01:45 PM - 04:30 PM</td>
+        <td>PROJECT PHASE I<br>BCS685 (Batch 1)</td>
+        <td></td>
+        <td>
+          <span class="faculty-icon">👤</span>Prof Ankitha Bekal<br>
+          <span class="faculty-icon">👤</span>Dr Sharmila Kumari
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Tuesday -->
+  <div id="Tuesday" class="tab-content">
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>Course</th>
+        <th>Room #</th>
+        <th>Faculty</th>
+      </tr>
+      <tr>
+        <td>09:00 AM - 09:55 AM</td>
+        <td>cv<br>BEE654B</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Prof Fathimath Raihan</td>
+      </tr>
+      <tr>
+        <td>09:55 AM - 10:50 AM</td>
+        <td>RE<br>BCS613B</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Dr Sharmila Kumari</td>
+      </tr>
+      <tr>
+        <td>11:05 AM - 12:00 PM</td>
+        <td>CC<br>BCS601</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Dr Sayed Abdulhayan</td>
+      </tr>
+      <tr>
+        <td>12:00 PM - 12:55 PM</td>
+        <td>PE<br>BCS602</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Miss Saniya P M</td>
+      </tr>
+      <tr class="highlight">
+        <td>01:45 PM - 04:30 PM</td>
+        <td>ML<br>BCS685 (Batch 1)</td>
+        <td></td>
+        <td>
+          <span class="faculty-icon">👤</span>Prof Ankitha Bekal<br>
+          <span class="faculty-icon">👤</span>Dr Sharmila Kumari
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Wednesday -->
+  <div id="Wednesday" class="tab-content">
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>Course</th>
+        <th>Room #</th>
+        <th>Faculty</th>
+      </tr>
+      <tr>
+        <td>09:00 AM - 09:55 AM</td>
+        <td>TECHNOLOGIES OF RENEWABLE ENERGY<br>BEE654B</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Prof Fathimath Raihan</td>
+      </tr>
+      <tr>
+        <td>09:55 AM - 10:50 AM</td>
+        <td>COMPUTER VISION<br>BCS613B</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Dr Sharmila Kumari</td>
+      </tr>
+      <tr>
+        <td>11:05 AM - 12:00 PM</td>
+        <td>CLOUD COMPUTING<br>BCS601</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Dr Sayed Abdulhayan</td>
+      </tr>
+      <tr>
+        <td>12:00 PM - 12:55 PM</td>
+        <td>MACHINE LEARNING<br>BCS602</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Miss Saniya P M</td>
+      </tr>
+      <tr class="highlight">
+        <td>01:45 PM - 04:30 PM</td>
+        <td>PROJECT PHASE I<br>BCS685 (Batch 1)</td>
+        <td></td>
+        <td>
+          <span class="faculty-icon">👤</span>Prof Ankitha Bekal<br>
+          <span class="faculty-icon">👤</span>Dr Sharmila Kumari
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Thursday -->
+  <div id="Thursday" class="tab-content">
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>Course</th>
+        <th>Room #</th>
+        <th>Faculty</th>
+      </tr>
+      <tr>
+        <td>09:00 AM - 09:55 AM</td>
+        <td>TECHNOLOGIES OF RENEWABLE ENERGY<br>BEE654B</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Prof Fathimath Raihan</td>
+      </tr>
+      <tr>
+        <td>09:55 AM - 10:50 AM</td>
+        <td>COMPUTER VISION<br>BCS613B</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Dr Sharmila Kumari</td>
+      </tr>
+      <tr>
+        <td>11:05 AM - 12:00 PM</td>
+        <td>CLOUD COMPUTING<br>BCS601</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Dr Sayed Abdulhayan</td>
+      </tr>
+      <tr>
+        <td>12:00 PM - 12:55 PM</td>
+        <td>MACHINE LEARNING<br>BCS602</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Miss Saniya P M</td>
+      </tr>
+      <tr class="highlight">
+        <td>01:45 PM - 04:30 PM</td>
+        <td>PROJECT PHASE I<br>BCS685 (Batch 1)</td>
+        <td></td>
+        <td>
+          <span class="faculty-icon">👤</span>Prof Ankitha Bekal<br>
+          <span class="faculty-icon">👤</span>Dr Sharmila Kumari
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!-- Friday -->
+  <div id="Friday" class="tab-content">
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>Course</th>
+        <th>Room #</th>
+        <th>Faculty</th>
+      </tr>
+      <tr>
+        <td>09:00 AM - 09:55 AM</td>
+        <td>TECHNOLOGIES OF RENEWABLE ENERGY<br>BEE654B</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Prof Fathimath Raihan</td>
+      </tr>
+      <tr>
+        <td>09:55 AM - 10:50 AM</td>
+        <td>COMPUTER VISION<br>BCS613B</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Dr Sharmila Kumari</td>
+      </tr>
+      <tr>
+        <td>11:05 AM - 12:00 PM</td>
+        <td>CLOUD COMPUTING<br>BCS601</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Dr Sayed Abdulhayan</td>
+      </tr>
+      <tr>
+        <td>12:00 PM - 12:55 PM</td>
+        <td>MACHINE LEARNING<br>BCS602</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Miss Saniya P M</td>
+      </tr>
+      <tr class="highlight">
+        <td>01:45 PM - 04:30 PM</td>
+        <td>PROJECT PHASE I<br>BCS685 (Batch 1)</td>
+        <td></td>
+        <td>
+          <span class="faculty-icon">👤</span>Prof Ankitha Bekal<br>
+          <span class="faculty-icon">👤</span>Dr Sharmila Kumari
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Saturday -->
+  <div id="Saturday" class="tab-content">
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>Course</th>
+        <th>Room #</th>
+        <th>Faculty</th>
+      </tr>
+      <tr>
+        <td>09:00 AM - 09:55 AM</td>
+        <td>TECHNOLOGIES OF RENEWABLE ENERGY<br>BEE654B</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Prof Fathimath Raihan</td>
+      </tr>
+      <tr>
+        <td>09:55 AM - 10:50 AM</td>
+        <td>COMPUTER VISION<br>BCS613B</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Dr Sharmila Kumari</td>
+      </tr>
+      <tr>
+        <td>11:05 AM - 12:00 PM</td>
+        <td>CLOUD COMPUTING<br>BCS601</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Dr Sayed Abdulhayan</td>
+      </tr>
+      <tr>
+        <td>12:00 PM - 12:55 PM</td>
+        <td>MACHINE LEARNING<br>BCS602</td>
+        <td></td>
+        <td><span class="faculty-icon">👤</span>Miss Saniya P M</td>
+      </tr>
+      <tr class="highlight">
+        <td>01:45 PM - 04:30 PM</td>
+        <td>PROJECT PHASE I<br>BCS685 (Batch 1)</td>
+        <td></td>
+        <td>
+          <span class="faculty-icon">👤</span>Prof Ankitha Bekal<br>
+          <span class="faculty-icon">👤</span>Dr Sharmila Kumari
+        </td>
+      </tr>
+    </table>
+  </div>
+  <script>
+    function openTab(evt, tabName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tab-content");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].classList.remove("active");
+      }
+      tablinks = document.getElementsByClassName("tablink");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+      }
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+  </script>
+<!-- Notification Icon -->
+<div id="notificationIcon" style="position: fixed; top: 20px; right: 20px; cursor: pointer;">
+  🔔
+</div>
+
+<!-- Notification Popup -->
+<div id="notificationBox" style="
+  display: none;
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  background-color: #ffffff;
+  color: #333;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  max-width: 250px;
+  z-index: 1000;
+">
+  <strong>New Notification</strong>
+  <p id="notificationMessage">You have a new class added!</p>
+</div>
+
+<!-- Audio -->
+<audio id="notificationSound">
+  <source src="notification.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+<script>
+  // Show the notification and play the sound
+  function showNotification() {
+    const box = document.getElementById("notificationBox");
+    const sound = document.getElementById("notificationSound");
+
+    box.style.display = "block"; // Show the notification
+    sound.play(); // Play the sound
+
+    // Hide the notification after 5 seconds
+    setTimeout(() => {
+      box.style.display = "none";
+    }, 5000);
+  }
+
+  // Automatically show notification 3 seconds after page load
+  setTimeout(showNotification, 3000);
+
+  // Or allow manual trigger when bell icon is clicked
+  document.getElementById("notificationIcon").addEventListener("click", showNotification);
+</script>
+
+</body>
+</html>

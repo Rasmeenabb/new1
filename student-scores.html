@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Scores - EduConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: maroon;
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            background-color: #666;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #444;
+            transform: translateX(-5px);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+            gap: 40px;
+            margin-bottom: 30px;
+            justify-content: center;
+            align-items: start;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px 15px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            height: 250px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 160px;
+            margin-bottom: 15px;
+        }
+
+        .attendance-card {
+            text-align: center;
+            height: 300px;
+        }
+
+        .cgpa-card {
+            text-align: center;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            height: 300px;
+        }
+
+        .improvement-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            height: 300px;
+            overflow-y: auto;
+        }
+
+        .improvement-list {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        /* Scrollbar styling for improvement card */
+        .improvement-card::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .improvement-card::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .improvement-card::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        .improvement-card::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Performance card specific styles */
+        .performance-card {
+            height: 300px;
+            padding: 20px;
+        }
+
+        .subject-performance {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        /* Make sure all headings have consistent spacing */
+        .card h2 {
+            margin: 0 0 15px 0;
+            font-size: 1.1rem;
+        }
+
+        /* Ensure consistent spacing for all cards */
+        .card > * {
+            margin-bottom: 15px;
+        }
+
+        .card > *:last-child {
+            margin-bottom: 0;
+        }
+
+        .attendance-percentage {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2196F3;
+            margin: 15px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .attendance-status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-good {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-warning {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .status-danger {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .improvement-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .improvement-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .improvement-icon {
+            margin-right: 10px;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .improvement-item:hover .improvement-icon {
+            transform: scale(1.2);
+        }
+
+        .score-trend {
+            margin-left: 10px;
+            font-size: 14px;
+        }
+
+        .trend-up {
+            color: #2e7d32;
+        }
+
+        .trend-down {
+            color: #c62828;
+        }
+
+        .cgpa-value {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .cgpa-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .branch-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+            height: auto !important;
+            padding: 20px !important;
+        }
+
+        .branch-info {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .seats-info {
+            text-align: center;
+        }
+
+        .available-seats {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2196F3;
+            display: block;
+            position: relative;
+        }
+
+        .total-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .requirements {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .req-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .req-item i {
+            color: #666;
+            width: 20px;
+        }
+
+        .book-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .book-btn:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+
+        /* Status indicators for seat availability */
+        .available-seats::after {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: 5px;
+        }
+
+        .available-seats[data-status="high"]::after {
+            background-color: #4CAF50;
+        }
+
+        .available-seats[data-status="medium"]::after {
+            background-color: #FFC107;
+        }
+
+        .available-seats[data-status="low"]::after {
+            background-color: #F44336;
+        }
+
+        /* Location Card Styles */
+        .location-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            height: auto !important;
+            padding: 20px !important;
+        }
+
+        .location-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .location-header i {
+            font-size: 24px;
+            color: #2196F3;
+        }
+
+        .location-header h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #1e293b;
+        }
+
+        .location-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-badge.open {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-badge.busy {
+            background-color: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .status-badge.classes {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .timing {
+            font-size: 14px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .occupancy {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .occupancy-label {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .occupancy-bar {
+            height: 8px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .occupancy-fill {
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 0.3s ease;
+        }
+
+        .occupancy-fill.high {
+            background-color: #ef5350;
+        }
+
+        .occupancy-fill.medium {
+            background-color: #ffa726;
+        }
+
+        .occupancy-text {
+            font-size: 13px;
+            color: #64748b;
+            text-align: right;
+        }
+
+        .nav-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .nav-btn:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn i {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="window.location.href='index.html'">← Back to Home</button>
+        
+        <div class="header">
+            <h1>Academic Performance Dashboard</h1>
+            <p>Track your academic progress and attendance</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card cgpa-card">
+                <h2>Current CGPA</h2>
+                <div class="cgpa-value">8.45</div>
+                <div class="cgpa-label">Semester 6</div>
+            </div>
+
+            <div class="card attendance-card">
+                <h2>Overall Attendance</h2>
+                <div class="attendance-percentage">85%</div>
+                <span class="attendance-status status-good">Good Standing</span>
+                <div id="attendanceChart" class="chart-container">
+                    <canvas></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Subject Performance</h2>
+                <div class="subject-performance">
+                    <span>Cloud Computing</span>
+                    <div class="subject-score">
+                        92% <span class="score-trend trend-up"><i class="fas fa-arrow-up"></i> 5%</span>
+                    </div>
+                </div>
+                <div class="subject-performance">
+                    <span>Machine Learning</span>
+                    <div class="subject-score">
+                        88% <span class="score-trend trend-up"><i class="fas fa-arrow-up"></i> 3%</span>
+                    </div>
+                </div>
+                <div class="subject-performance">
+                    <span>Computer Vision</span>
+                    <div class="subject-score">
+                        78% <span class="score-trend trend-down"><i class="fas fa-arrow-down"></i> 2%</span>
+                    </div>
+                </div>
+                <div class="subject-performance">
+                    <span>Renewable Energy</span>
+                    <div class="subject-score">
+                        85% <span class="score-trend trend-up"><i class="fas fa-arrow-up"></i> 4%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <h2>Performance Trends</h2>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+
+            <div class="card improvement-card">
+                <h2>Improvement Suggestions</h2>
+                <ul class="improvement-list">
+                    <li class="improvement-item">
+                        <i class="fas fa-exclamation-circle improvement-icon"></i>
+                        <div>
+                            <strong>Computer Vision</strong>
+                            <p>Attend extra practice sessions for better understanding of image processing concepts.</p>
+                        </div>
+                    </li>
+                    <li class="improvement-item">
+                        <i class="fas fa-clock improvement-icon"></i>
+                        <div>
+                            <strong>Attendance Warning</strong>
+                            <p>Machine Learning class attendance is below 75%. Improve attendance to maintain eligibility.</p>
+                        </div>
+                    </li>
+                    <li class="improvement-item">
+                        <i class="fas fa-lightbulb improvement-icon"></i>
+                        <div>
+                            <strong>Study Tip</strong>
+                            <p>Join the peer study group for Cloud Computing to improve practical knowledge.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="header">
+            <h1>Branch Selection</h1>
+            <p>Available seats and requirements for each branch</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card branch-card">
+                <h2>Computer Science</h2>
+                <div class="branch-info">
+                    <div class="seats-info">
+                        <span class="available-seats">45</span>
+                        <span class="total-label">seats available</span>
+                    </div>
+                    <div class="requirements">
+                        <div class="req-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Min. CGPA: 8.5</span>
+                        </div>
+                        <div class="req-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Fee: $12,000/yr</span>
+                        </div>
+                    </div>
+                    <button class="book-btn">Book Seat</button>
+                </div>
+            </div>
+
+            <div class="card branch-card">
+                <h2>Data Science</h2>
+                <div class="branch-info">
+                    <div class="seats-info">
+                        <span class="available-seats">28</span>
+                        <span class="total-label">seats available</span>
+                    </div>
+                    <div class="requirements">
+                        <div class="req-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Min. CGPA: 8.0</span>
+                        </div>
+                        <div class="req-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Fee: $13,500/yr</span>
+                        </div>
+                    </div>
+                    <button class="book-btn">Book Seat</button>
+                </div>
+            </div>
+
+            <div class="card branch-card">
+                <h2>AI & ML</h2>
+                <div class="branch-info">
+                    <div class="seats-info">
+                        <span class="available-seats">15</span>
+                        <span class="total-label">seats available</span>
+                    </div>
+                    <div class="requirements">
+                        <div class="req-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Min. CGPA: 9.0</span>
+                        </div>
+                        <div class="req-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Fee: $15,000/yr</span>
+                        </div>
+                    </div>
+                    <button class="book-btn">Book Seat</button>
+                </div>
+            </div>
+
+            <div class="card branch-card">
+                <h2>Cybersecurity</h2>
+                <div class="branch-info">
+                    <div class="seats-info">
+                        <span class="available-seats">32</span>
+                        <span class="total-label">seats available</span>
+                    </div>
+                    <div class="requirements">
+                        <div class="req-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Min. CGPA: 8.2</span>
+                        </div>
+                        <div class="req-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Fee: $14,000/yr</span>
+                        </div>
+                    </div>
+                    <button class="book-btn">Book Seat</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campus Navigation Section -->
+        <div class="header">
+            <h1>Campus Navigation</h1>
+            <p>Find and navigate to different campus locations</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Libraries Section -->
+            <div class="card location-card">
+                <div class="location-header">
+                    <i class="fas fa-book-reader"></i>
+                    <h2>Central Library</h2>
+                </div>
+                <div class="location-info">
+                    <div class="status-badge open">Open Now</div>
+                    <p class="timing">Hours: 8:00 AM - 10:00 PM</p>
+                    <div class="occupancy">
+                        <span class="occupancy-label">Current Occupancy:</span>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill" style="width: 65%;"></div>
+                        </div>
+                        <span class="occupancy-text">65%</span>
+                    </div>
+                    <button class="nav-btn" onclick="window.location.href='#map-central-lib'">
+                        <i class="fas fa-location-arrow"></i> Navigate
+                    </button>
+                </div>
+            </div>
+
+            <div class="card location-card">
+                <div class="location-header">
+                    <i class="fas fa-flask"></i>
+                    <h2>Science Lab Complex</h2>
+                </div>
+                <div class="location-info">
+                    <div class="status-badge open">Open Now</div>
+                    <p class="timing">Hours: 9:00 AM - 6:00 PM</p>
+                    <div class="occupancy">
+                        <span class="occupancy-label">Current Occupancy:</span>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill" style="width: 45%;"></div>
+                        </div>
+                        <span class="occupancy-text">45%</span>
+                    </div>
+                    <button class="nav-btn" onclick="window.location.href='#map-science-lab'">
+                        <i class="fas fa-location-arrow"></i> Navigate
+                    </button>
+                </div>
+            </div>
+
+            <div class="card location-card">
+                <div class="location-header">
+                    <i class="fas fa-laptop-code"></i>
+                    <h2>Computer Lab</h2>
+                </div>
+                <div class="location-info">
+                    <div class="status-badge busy">High Traffic</div>
+                    <p class="timing">Hours: 8:00 AM - 8:00 PM</p>
+                    <div class="occupancy">
+                        <span class="occupancy-label">Current Occupancy:</span>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill high" style="width: 85%;"></div>
+                        </div>
+                        <span class="occupancy-text">85%</span>
+                    </div>
+                    <button class="nav-btn" onclick="window.location.href='#map-comp-lab'">
+                        <i class="fas fa-location-arrow"></i> Navigate
+                    </button>
+                </div>
+            </div>
+
+            <div class="card location-card">
+                <div class="location-header">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h2>Lecture Halls</h2>
+                </div>
+                <div class="location-info">
+                    <div class="status-badge classes">Classes in Session</div>
+                    <p class="timing">Hours: 8:00 AM - 5:00 PM</p>
+                    <div class="occupancy">
+                        <span class="occupancy-label">Current Occupancy:</span>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill medium" style="width: 75%;"></div>
+                        </div>
+                        <span class="occupancy-text">75%</span>
+                    </div>
+                    <button class="nav-btn" onclick="window.location.href='#map-lecture'">
+                        <i class="fas fa-location-arrow"></i> Navigate
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Performance Chart
+            const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+            new Chart(performanceCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Test 1', 'Test 2', 'Test 3', 'Mid Sem', 'Test 4', 'Test 5'],
+                    datasets: [{
+                        label: 'Cloud Computing',
+                        data: [85, 88, 92, 90, 92, 92],
+                        borderColor: '#2196F3',
+                        tension: 0.4
+                    }, {
+                        label: 'Machine Learning',
+                        data: [80, 82, 85, 86, 88, 88],
+                        borderColor: '#4CAF50',
+                        tension: 0.4
+                    }, {
+                        label: 'Computer Vision',
+                        data: [82, 80, 78, 75, 76, 78],
+                        borderColor: '#FFC107',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 60,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Attendance Chart
+            const attendanceCtx = document.querySelector('.attendance-card canvas').getContext('2d');
+            new Chart(attendanceCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Present', 'Absent'],
+                    datasets: [{
+                        data: [85, 15],
+                        backgroundColor: ['#2196F3', '#ffebee']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+
+            // Function to update attendance status
+            function updateAttendanceStatus(percentage) {
+                const statusElement = document.querySelector('.attendance-status');
+                if (percentage >= 85) {
+                    statusElement.className = 'attendance-status status-good';
+                    statusElement.textContent = 'Good Standing';
+                } else if (percentage >= 75) {
+                    statusElement.className = 'attendance-status status-warning';
+                    statusElement.textContent = 'Need Improvement';
+                } else {
+                    statusElement.className = 'attendance-status status-danger';
+                    statusElement.textContent = 'Critical';
+                }
+            }
+
+            // Initialize with current attendance
+            updateAttendanceStatus(85);
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // Set status indicators based on available seats
+                const seatsElements = document.querySelectorAll('.available-seats');
+                seatsElements.forEach(element => {
+                    const seats = parseInt(element.textContent);
+                    if (seats > 30) {
+                        element.setAttribute('data-status', 'high');
+                    } else if (seats > 20) {
+                        element.setAttribute('data-status', 'medium');
+                    } else {
+                        element.setAttribute('data-status', 'low');
+                    }
+                });
+
+                // Add click handlers for booking buttons
+                const bookButtons = document.querySelectorAll('.book-btn');
+                bookButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const branchName = this.closest('.branch-card').querySelector('h2').textContent;
+                        alert(`Initiating booking process for ${branchName}. Please complete your application in the student portal.`);
+                    });
+                });
+            });
+
+            // Update occupancy data every 5 minutes
+            function updateOccupancy() {
+                const occupancyBars = document.querySelectorAll('.occupancy-fill');
+                occupancyBars.forEach(bar => {
+                    const currentOccupancy = parseInt(bar.style.width);
+                    const occupancyText = bar.parentElement.nextElementSibling;
+                    
+                    if (currentOccupancy > 80) {
+                        bar.classList.add('high');
+                        bar.classList.remove('medium');
+                    } else if (currentOccupancy > 60) {
+                        bar.classList.add('medium');
+                        bar.classList.remove('high');
+                    } else {
+                        bar.classList.remove('high', 'medium');
+                    }
+                    
+                    occupancyText.textContent = `${currentOccupancy}%`;
+                });
+            }
+
+            // Initial update
+            updateOccupancy();
+
+            // Update every 5 minutes
+            setInterval(updateOccupancy, 300000);
+        </script>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Collaboration - EduConnect</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .collaboration-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .online-students {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .student-card {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #eee;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .student-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .project-recommendations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .project-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .project-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .tag {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+
+        .collaboration-tools {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tool-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background: #3498db;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .tool-button:hover {
+            background: #2980b9;
+        }
+
+        .tool-button i {
+            margin-right: 8px;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #2ecc71;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="logo-title">
+                <img src="assets/logo.jpg" alt="EduConnect" class="logo">
+                <h1 class="center-title">Live Collaboration<span>Connect & Create Together</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li>About Us</li>
+                    <li>Research</li>
+                    <li>Contact</li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="collaboration-container">
+        <div class="online-students">
+            <h2><i class="fas fa-users"></i> Available Students</h2>
+            <div class="student-card">
+                <img src="assets/avatar1.jpg" alt="Student Avatar" class="student-avatar">
+                <div class="student-info">
+                    <h3>Sarah Johnson<span class="status-indicator"></span></h3>
+                    <p>Computer Science • Year 3</p>
+                </div>
+            </div>
+            <div class="student-card">
+                <img src="assets/avatar2.jpg" alt="Student Avatar" class="student-avatar">
+                <div class="student-info">
+                    <h3>Michael Chen<span class="status-indicator"></span></h3>
+                    <p>Data Science • Year 2</p>
+                </div>
+            </div>
+        </div>
+
+        <h2><i class="fas fa-lightbulb"></i> Recommended Projects</h2>
+        <div class="project-recommendations">
+            <div class="project-card">
+                <h3>AI-Powered Campus Assistant</h3>
+                <p>Build a chatbot to help students navigate campus resources and services.</p>
+                <div class="project-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Machine Learning</span>
+                    <span class="tag">NLP</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <h3>Sustainable Campus Initiative</h3>
+                <p>Develop IoT solutions for monitoring and reducing campus energy consumption.</p>
+                <div class="project-tags">
+                    <span class="tag">IoT</span>
+                    <span class="tag">Arduino</span>
+                    <span class="tag">Data Analysis</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <h3>Student Marketplace App</h3>
+                <p>Create a platform for students to buy, sell, and exchange academic materials.</p>
+                <div class="project-tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">MongoDB</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="collaboration-tools">
+            <h2><i class="fas fa-tools"></i> Collaboration Tools</h2>
+            <button class="tool-button">
+                <i class="fas fa-video"></i>
+                Start Video Call
+            </button>
+            <button class="tool-button">
+                <i class="fas fa-code"></i>
+                Code Together
+            </button>
+            <button class="tool-button">
+                <i class="fas fa-file-alt"></i>
+                Share Documents
+            </button>
+            <button class="tool-button">
+                <i class="fas fa-tasks"></i>
+                Project Board
+            </button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-overlay">
+            <div class="footer-content">
+                <img src="assets/logo.jpg" alt="EduConnect Logo" class="footer-logo">
+                <ul class="footer-nav">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Programs</a></li>
+                    <li><a href="#">Admissions</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+                <div class="footer-socials">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+                <p class="footer-copy">© 2025 EduConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add interactivity for the collaboration tools
+        document.querySelectorAll('.tool-button').forEach(button => {
+            button.addEventListener('click', function() {
+                alert('This feature will be available soon!');
+            });
+        });
+
+        // Simulate new students coming online
+        setInterval(() => {
+            const names = ['Alex Wong', 'Emma Smith', 'David Kumar', 'Lisa Park'];
+            const courses = ['Web Development', 'AI & Robotics', 'Business Analytics', 'UX Design'];
+            const years = [1, 2, 3, 4];
+            
+            if (Math.random() > 0.7) {
+                const randomName = names[Math.floor(Math.random() * names.length)];
+                const randomCourse = courses[Math.floor(Math.random() * courses.length)];
+                const randomYear = years[Math.floor(Math.random() * years.length)];
+                
+                const studentCard = document.createElement('div');
+                studentCard.className = 'student-card';
+                studentCard.innerHTML = `
+                    <img src="assets/avatar${Math.floor(Math.random() * 4 + 1)}.jpg" alt="Student Avatar" class="student-avatar">
+                    <div class="student-info">
+                        <h3>${randomName}<span class="status-indicator"></span></h3>
+                        <p>${randomCourse} • Year ${randomYear}</p>
+                    </div>
+                `;
+                
+                document.querySelector('.online-students').appendChild(studentCard);
+            }
+        }, 5000);
+    </script>
+</body>
+</html> 

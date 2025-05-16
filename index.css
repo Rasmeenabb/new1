@@ -131,32 +131,41 @@ nav ul li:hover {
 
 /* DASHBOARD GRID */
 .dashboard {
-  padding: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 30px;
   padding: 60px 20px;
-  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+  gap: 40px;
+  max-width: 1200px;
   margin: auto;
+  justify-content: center;
+  align-items: start;
 }
 
 /* INDIVIDUAL CARDS */
 .card {
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(8px);
-  border-radius: 20px;
+  border-radius: 16px;
   text-align: center;
-  padding: 35px 20px;
+  padding: 25px 15px;
   cursor: pointer;
   transition: all 0.3s ease;
   color: #0f172a;
   box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+  width: 250px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center;
+  margin: 0;
 }
 
 .card i {
   font-size: 34px;
-  margin-bottom: 12px;
   color: #475569;
+  margin-bottom: 12px;
   transition: transform 0.3s, color 0.3s;
 }
 
@@ -165,16 +174,22 @@ nav ul li:hover {
   font-size: 15px;
   font-weight: 600;
   color: #1e293b;
+  transition: color 0.3s;
 }
 
 .card:hover {
-  background-color: #e0e7ff;
-  transform: translateY(-6px);
+  background-color: #1e293b;
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
 }
 
 .card:hover i {
   transform: scale(1.2);
-  color: #1d4ed8;
+  color: #facc15;
+}
+
+.card:hover span {
+  color: white;
 }
 
 .card.active {
@@ -186,15 +201,14 @@ nav ul li:hover {
   color: #facc15;
 }
 
-.peer-card {
-  background: linear-gradient(135deg, #4f46e5, #60a5fa);
-  color: white;
-  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.4);
+.resell-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.8));
 }
 
-.peer-card i {
-  color: #e0f2fe;
+.resell-card:hover {
+  background: linear-gradient(135deg, #1e293b, #2d3748);
 }
+
 .footer {
   position: relative;
   background-image: url('footer-bg.jpg'); /* Replace with your background image */
@@ -264,3 +278,45 @@ nav ul li:hover {
   color: #cbd5e1;
 }
 
+.hidden {
+  display: none;
+}
+
+.events-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+  text-align: left;
+}
+
+.events-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+/* Event form container */
+#eventForm {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 300px;
+  margin: 15px auto;
+}
+
+#eventForm input,
+#eventForm button {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+#eventForm button {
+  background-color: maroon;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

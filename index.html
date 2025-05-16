@@ -13,7 +13,7 @@
   <header>
     <div class="top-bar">
       <div class="logo-title">
-        <img src="logo.png" alt="EduConnect" class="logo">
+        <img src="assets/logo.jpg" alt="EduConnect" class="logo">
         <h1 class="center-title">EduConnect<span>Your Smart Campus Tracker</span></h1>
       </div>
       <nav>
@@ -30,7 +30,7 @@
   <main>
     <section class="hero">
       <div class="hero-img">
-        <img src="campus-mockup.png" alt="Campus video preview">
+        <img src="assets/camp-img-1.jpeg" alt="Campus video preview">
       </div>
     </section>
 
@@ -40,47 +40,96 @@
   <div class="chat-popup">
     👋 Hello, Welcome to EduConnect!
   </div>
-
   <section class="dashboard">
-    <div class="card">
-      <i class="fas fa-map-marked-alt"></i>
-      <span>Campus Compass</span>
-    </div>
-    <div class="card">
-      <i class="fas fa-calendar-day"></i>
-      <span>Events Calendar</span>
-    </div>
-    <div class="card">
+<a href="resell.html" class="card resell-card" style="text-decoration: none; color: inherit;">
+      <i class="fas fa-comments-dollar"></i>
+      <span>RESELL</span>
+    </a>
+
+<a href="campus-locations.html" class="card" style="text-decoration: none; color: inherit;">
+  <i class="fas fa-map-marked-alt"></i>
+  <span>Campus Compass</span>
+</a>
+
+
+   <a href="events.html" class="card">
+  <i class="fas fa-calendar-day"></i>
+  <span>Events Calendar</span>
+</a>
+<a href="live-collaboration.html"><div class="card">
       <i class="fas fa-users"></i>
       <span>Live Collaboration</span>
     </div>
-    <div class="card">
-      <i class="fas fa-clock"></i>
-      <span>Class scheduling</span>
-    </div>
-    <br>
-    <div class="card">
-      <i class="fas fa-bell"></i>
-      <span>Alerts</span>
-    </div>
-    <div class="card">
-      <i class="fas fa-comments"></i>
-      <span>Chatroom</span>
-    </div>
-    <div class="card">
+    </a>
+<a href="timetable.html" class="card">
+  <i class="fas fa-clock"></i>
+  <span>Class scheduling</span>
+</a>
+ 
+   <a href="study-group.html"> <div class="card">
       <i class="fas fa-user-friends"></i>
       <span>Study Groups</span>
-    </div><div class="card">
-      <i class="fas fa-user-clock"></i>
-      <span>Peer availability</span>
-    </div>
+    </div></a>
+        <a href="alerts.html" class="card" style="text-decoration: none; color: inherit;">
+      <i class="fas fa-bell"></i>
+      <span>Alerts</span>
+    </a>
+    <a href="student-scores.html" class="card" style="text-decoration: none; color: inherit;">
+      <i class="fas fa-chart-line"></i>
+      <span>Academic Performance</span>
+    </a>
+    
 
   </section>
+
+
+<script>
+  const card = document.getElementById("campusCard");
+  const video = document.getElementById("campusVideo");
+
+  card.addEventListener("click", () => {
+    video.style.display = "block"; // show the video
+    video.play(); // play the video
+  });
+</script>
+
+<script>
+  const eventCard = document.getElementById("eventCalendarCard");
+  const eventSection = document.getElementById("eventSection");
+  const eventForm = document.getElementById("eventForm");
+  const eventList = document.querySelector(".events-list");
+
+  // Toggle visibility on click
+  eventCard.addEventListener("click", function (e) {
+    // Prevent form clicks from collapsing
+    if (!e.target.closest('form') && !e.target.closest('input')) {
+      eventSection.classList.toggle("hidden");
+    }
+  });
+
+  // Add new event
+  eventForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const title = document.getElementById("eventTitle").value;
+    const date = document.getElementById("eventDate").value;
+
+    if (title && date) {
+      const li = document.createElement("li");
+      li.innerHTML = `<strong>${new Date(date).toDateString()}:</strong> ${title}`;
+      eventList.appendChild(li);
+      eventForm.reset();
+    }
+  });
+</script>
+
+
+
+
 
   <footer class="footer">
   <div class="footer-overlay">
     <div class="footer-content">
-      <img src="logo.png" alt="EduConnect Logo" class="footer-logo">
+      <img src="assets/logo.jpg" alt="EduConnect Logo" class="footer-logo">
 
       <ul class="footer-nav">
         <li><a href="#">About</a></li>

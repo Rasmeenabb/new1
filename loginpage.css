@@ -6,8 +6,8 @@
 }
 
 body {
-  background-color: #F3EDE7; /* Soft light beige */
   height: 100vh;
+  background-color: #fff;
 }
 
 .container {
@@ -21,12 +21,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .right {
   flex: 1;
-  background-color: #8B5E3C; /* Brown */
+  background-color: #8B4513;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,42 +52,37 @@ body {
 .brand {
   font-size: 20px;
   font-weight: 600;
-  color: #800000; /* Maroon */
+  color: #1E1E1E;
 }
 
-h1 {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: #800000; /* Maroon */
-}
-
-.left p {
-  color: #8B5E3C; /* Brown */
-  font-size: 14px;
-  margin-bottom: 24px;
-}
-
-form {
+.auth-form {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
+.auth-form h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: maroon;
+}
+
+.auth-form p {
+  color: #7C7C8A;
+  font-size: 14px;
+}
+
 label {
   font-size: 14px;
-  color: #800000; /* Maroon */
+  color: #1E1E1E;
   margin-bottom: 4px;
 }
 
-input[type="email"],
-input[type="password"] {
+input {
   padding: 12px 16px;
-  border: 1px solid #D6C4B3;
+  border: 1px solid #EAEAEA;
   border-radius: 8px;
   font-size: 14px;
-  background-color: #FFFFFF;
-  color: #1E1E1E;
 }
 
 .options {
@@ -97,22 +92,14 @@ input[type="password"] {
   font-size: 14px;
 }
 
-.options label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #800000; /* Maroon */
-}
-
 .options a {
-  color: #8B5E3C; /* Brown */
+  color: #5E4AE3;
   text-decoration: none;
-  font-weight: 500;
 }
 
 .primary-btn {
-  background-color: #800000; /* Maroon */
-  color: #FFFFFF;
+  background-color: maroon;
+  color: #fff;
   font-size: 14px;
   padding: 12px 16px;
   border: none;
@@ -126,25 +113,50 @@ input[type="password"] {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border: 1px solid #D6C4B3;
+  border: 1px solid #EAEAEA;
   padding: 12px 16px;
   border-radius: 8px;
   font-size: 14px;
-  cursor: pointer;
-  font-weight: 500;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   margin-top: 8px;
-  color: #8B5E3C;
+  cursor: pointer;
 }
 
-.signup {
-  margin-top: 24px;
+.toggle-text {
   font-size: 14px;
-  color: #8B5E3C;
+  color: #7C7C8A;
 }
 
-.signup a {
-  color: #8B5E3C;
-  font-weight: 500;
+.toggle-text a {
+  color: #5E4AE3;
   text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 40px;
+}
+
+.grid button {
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.content-area {
+  padding: 30px;
+  margin: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }

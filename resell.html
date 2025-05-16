@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Resell - EduConnect</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: maroon;
+            margin-bottom: 10px;
+        }
+
+        .sell-form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: maroon;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .suggestions {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .suggestion-item {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .price-range {
+            color: #2e7d32;
+            font-weight: 600;
+        }
+
+        .market-analysis {
+            margin-top: 10px;
+            color: #666;
+        }
+
+        .back-button {
+            background-color: #666;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="window.location.href='index.html'">← Back to Home</button>
+        
+        <div class="header">
+            <h1>Campus Resell</h1>
+            <p>Get the best value for your academic items</p>
+        </div>
+
+        <div class="sell-form">
+            <h2>What would you like to sell?</h2>
+            <form id="resellForm">
+                <div class="form-group">
+                    <label for="itemType">Item Type</label>
+                    <select id="itemType" required>
+                        <option value="">Select item type</option>
+                        <option value="calculator">Calculator</option>
+                        <option value="textbook">Textbook</option>
+                        <option value="notes">Study Notes</option>
+                        <option value="other">Other Academic Items</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemName">Item Name/Model</label>
+                    <input type="text" id="itemName" placeholder="e.g., TI-84 Plus or Calculus 101 Textbook" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="condition">Condition</label>
+                    <select id="condition" required>
+                        <option value="">Select condition</option>
+                        <option value="new">New</option>
+                        <option value="likeNew">Like New</option>
+                        <option value="good">Good</option>
+                        <option value="fair">Fair</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Additional Details</label>
+                    <textarea id="description" rows="4" placeholder="Describe your item's features, any damage, included accessories, etc."></textarea>
+                </div>
+
+                <button type="submit">Get Price Suggestions</button>
+            </form>
+        </div>
+
+        <div class="suggestions" id="suggestionBox" style="display: none;">
+            <h2>Suggested Pricing</h2>
+            <div id="suggestions"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('resellForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const itemType = document.getElementById('itemType').value;
+            const itemName = document.getElementById('itemName').value;
+            const condition = document.getElementById('condition').value;
+            
+            // Show suggestions box
+            document.getElementById('suggestionBox').style.display = 'block';
+            const suggestionsDiv = document.getElementById('suggestions');
+            suggestionsDiv.innerHTML = ''; // Clear previous suggestions
+
+            // Calculate suggestions based on item type
+            if (itemType === 'calculator') {
+                const suggestions = getCalculatorSuggestions(itemName, condition);
+                displaySuggestions(suggestions);
+            } else if (itemType === 'textbook') {
+                const suggestions = getTextbookSuggestions(itemName, condition);
+                displaySuggestions(suggestions);
+            } else {
+                const suggestions = getGeneralSuggestions(itemName, condition);
+                displaySuggestions(suggestions);
+            }
+        });
+
+        function getCalculatorSuggestions(model, condition) {
+            // Example calculator pricing logic
+            let basePrice = 0;
+            if (model.toLowerCase().includes('ti-84')) {
+                basePrice = 100;
+            } else if (model.toLowerCase().includes('ti-89')) {
+                basePrice = 150;
+            } else if (model.toLowerCase().includes('casio')) {
+                basePrice = 80;
+            }
+
+            // Adjust price based on condition
+            const conditionMultiplier = {
+                'new': 1,
+                'likeNew': 0.9,
+                'good': 0.7,
+                'fair': 0.5
+            };
+
+            const adjustedPrice = basePrice * conditionMultiplier[condition];
+
+            return [{
+                suggestion: `Recommended Price Range`,
+                priceRange: `$${Math.round(adjustedPrice * 0.9)} - $${Math.round(adjustedPrice * 1.1)}`,
+                analysis: `Based on current campus demand and similar listings, this is the optimal price range for quick sale while maximizing value.`
+            }];
+        }
+
+        function getTextbookSuggestions(title, condition) {
+            // Example textbook pricing logic
+            let basePrice = 80; // Average textbook price
+            
+            const conditionMultiplier = {
+                'new': 0.8, // Even new textbooks typically sell for less than retail
+                'likeNew': 0.7,
+                'good': 0.5,
+                'fair': 0.3
+            };
+
+            const adjustedPrice = basePrice * conditionMultiplier[condition];
+
+            return [{
+                suggestion: `Recommended Price Range`,
+                priceRange: `$${Math.round(adjustedPrice * 0.9)} - $${Math.round(adjustedPrice * 1.1)}`,
+                analysis: `Consider checking online prices and campus bookstore buyback rates. This price range is competitive for quick sale.`
+            }];
+        }
+
+        function getGeneralSuggestions(item, condition) {
+            // General item pricing logic
+            return [{
+                suggestion: `Market-based Suggestion`,
+                priceRange: `Varies based on specific item`,
+                analysis: `Research similar items on campus marketplace and online platforms. Consider seasonal demand and current course requirements.`
+            }];
+        }
+
+        function displaySuggestions(suggestions) {
+            const suggestionsDiv = document.getElementById('suggestions');
+            suggestions.forEach(suggestion => {
+                suggestionsDiv.innerHTML += `
+                    <div class="suggestion-item">
+                        <h3>${suggestion.suggestion}</h3>
+                        <div class="price-range">${suggestion.priceRange}</div>
+                        <div class="market-analysis">${suggestion.analysis}</div>
+                    </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html> 

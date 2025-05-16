@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Locations - EduConnect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: maroon;
+            margin-bottom: 10px;
+        }
+
+        /* Category Buttons */
+        .location-categories {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            background: #e2e8f0;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .category-btn.active {
+            background: #2196F3;
+            color: white;
+        }
+
+        /* Location Cards */
+        .location-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            height: auto !important;
+            padding: 20px !important;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .location-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .location-header i {
+            font-size: 24px;
+            color: #2196F3;
+        }
+
+        .location-header h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #1e293b;
+        }
+
+        .location-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .location-detail {
+            font-size: 13px;
+            color: #64748b;
+            margin: 0;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .location-detail::before {
+            content: "📍";
+            position: absolute;
+            left: 0;
+        }
+
+        .current-class {
+            font-size: 13px;
+            color: #1e293b;
+            font-weight: 500;
+            background: #e3f2fd;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-top: -5px;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-badge.open {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-badge.busy {
+            background-color: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .status-badge.classes {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status-badge.restricted {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        /* Navigation Button */
+        .nav-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .nav-btn:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn i {
+            font-size: 14px;
+        }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+            gap: 40px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        /* Back Button */
+        .back-button {
+            background-color: #666;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #444;
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="window.location.href='index.html'">← Back to Home</button>
+        
+        <div class="header">
+            <h1>Campus Locations</h1>
+            <p>Find and navigate to different campus facilities</p>
+        </div>
+
+        <div class="location-categories">
+            <button class="category-btn active" data-category="all">All Locations</button>
+            <button class="category-btn" data-category="labs">Labs</button>
+            <button class="category-btn" data-category="classes">Classes</button>
+            <button class="category-btn" data-category="facilities">Facilities</button>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Labs Section -->
+            <div class="card location-card" data-type="labs">
+                <div class="location-header">
+                    <i class="fas fa-laptop-code"></i>
+                    <h2>Computer Lab - Block A</h2>
+                </div>
+                <div class="location-info">
+                    <div class="status-badge busy">High Traffic</div>
+                    <p class="timing">Hours: 8:00 AM - 8:00 PM</p>
+                    <p class="location-detail">Ground Floor, Block A</p>
+                    <div class="occupancy">
+                        <span class="occupancy-label">Current Occupancy:</span>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill high" style="width: 85%;"></div>
+                        </div>
+                        <span class="occupancy-text">85%</span>
+                    </div>
+                    <button class="nav-btn" onclick="window.location.href='#map-comp-lab-a'">
+                        <i class="fas fa-location-arrow"></i> Navigate
+                    </button>
+                </div>
+            </div>
+
+            <div class="card location-card" data-type="labs">
+                <div class="location-header">
+                    <i class="fas fa-flask"></i>
+                    <h2>Chemistry Lab</h2>
+                </div>
+                <div class="location-info">
+                    <div class="status-badge classes">Class in Session</div>
+                    <p class="timing">Hours: 9:00 AM - 6:00 PM</p>
+                    <p class="location-detail">2nd Floor, Science Block</p>
+                    <div class="occupancy">
+                        <span class="occupancy-label">Current Occupancy:</span>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill medium" style="width: 70%;"></div>
+                        </div>
+                        <span class="occupancy-text">70%</span>
+                    </div>
+                    <button class="nav-btn" onclick="window.location.href='#map-chem-lab'">
+                        <i class="fas fa-location-arrow"></i> Navigate
+                    </button>
+                </div>
+            </div>
+
+            <div class="card location-card" data-type="labs">
+                <div class="location-header">
+                    <i class="fas fa-atom"></i>
+                    <h2>Physics Lab</h2>
+                </div>
+                <div class="location-info">
+                    <div class="status-badge open">Open Now</div>
+                    <p class="timing">Hours: 9:00 AM - 6:00 PM</p>
+                    <p class="location-detail">1st Floor, Science Block</p>
+                    <div class="occupancy">
+                        <span class="occupancy-label">Current Occupancy:</span>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill" style="width: 45%;"></div>
+                        </div>
+                        <span class="occupancy-text">45%</span>
+                    </div>
+                    <button class="nav-btn" onclick="window.location.href='#map-physics-lab'">
+                        <i class="fas fa-location-arrow"></i> Navigate
+                    </button>
+                </div>
+            </div>
+
+            <!-- Classrooms Section -->
+            <div class="card location-card" data-type="classes">
+                <div class="location-header">
+                    <i class="fas fa-chalkboard"></i>
+                    <h2>Lecture Hall 101</h2>
+                </div>
+                <div class="location-info">
+                    <div class="status-badge classes">Class in Session</div>
+                    <p class="timing">Hours: 8:00 AM - 5:00 PM</p>
+                    <p class="location-detail">Block B, Ground Floor</p>
+                    <div class="current-class">Current: Data Structures</div>
+                    <div class="occupancy">
+                        <span class="occupancy-label">Current Occupancy:</span>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill high" style="width: 90%;"></div>
+                        </div>
+                        <span class="occupancy-text">90%</span>
+                    </div>
+                    <button class="nav-btn" onclick="window.location.href='#map-lh-101'">
+                        <i class="fas fa-location-arrow"></i> Navigate
+                    </button>
+                </div>
+            </div>
+
+            <div class="card location-card" data-type="classes">
+                <div class="location-header">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h2>Seminar Hall</h2>
+                </div>
+                <div class="location-info">
+                    <div class="status-badge open">Available</div>
+                    <p class="timing">Hours: 8:00 AM - 8:00 PM</p>
+                    <p class="location-detail">Block C, 1st Floor</p>
+                    <div class="occupancy">
+                        <span class="occupancy-label">Current Occupancy:</span>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill" style="width: 20%;"></div>
+                        </div>
+                        <span class="occupancy-text">20%</span>
+                    </div>
+                    <button class="nav-btn" onclick="window.location.href='#map-seminar'">
+                        <i class="fas fa-location-arrow"></i> Navigate
+                    </button>
+                </div>
+            </div>
+
+            <!-- Research Facilities -->
+            <div class="card location-card" data-type="labs">
+                <div class="location-header">
+                    <i class="fas fa-microscope"></i>
+                    <h2>Research Lab</h2>
+                </div>
+                <div class="location-info">
+                    <div class="status-badge restricted">Restricted Access</div>
+                    <p class="timing">Hours: 24/7 (Card Access)</p>
+                    <p class="location-detail">Block D, 3rd Floor</p>
+                    <div class="occupancy">
+                        <span class="occupancy-label">Current Occupancy:</span>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill" style="width: 35%;"></div>
+                        </div>
+                        <span class="occupancy-text">35%</span>
+                    </div>
+                    <button class="nav-btn" onclick="window.location.href='#map-research'">
+                        <i class="fas fa-location-arrow"></i> Navigate
+                    </button>
+                </div>
+            </div>
+
+            <!-- Other Facilities -->
+            <div class="card location-card" data-type="facilities">
+                <div class="location-header">
+                    <i class="fas fa-book-reader"></i>
+                    <h2>Central Library</h2>
+                </div>
+                <div class="location-info">
+                    <div class="status-badge open">Open Now</div>
+                    <p class="timing">Hours: 8:00 AM - 10:00 PM</p>
+                    <p class="location-detail">Central Block</p>
+                    <div class="occupancy">
+                        <span class="occupancy-label">Current Occupancy:</span>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill medium" style="width: 65%;"></div>
+                        </div>
+                        <span class="occupancy-text">65%</span>
+                    </div>
+                    <button class="nav-btn" onclick="window.location.href='#map-library'">
+                        <i class="fas fa-location-arrow"></i> Navigate
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Category filtering
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const locationCards = document.querySelectorAll('.location-card');
+
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active state
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Filter cards
+                    const category = this.dataset.category;
+                    locationCards.forEach(card => {
+                        if (category === 'all' || card.dataset.type === category) {
+                            card.style.display = '';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Update occupancy colors
+            function updateOccupancy() {
+                const occupancyBars = document.querySelectorAll('.occupancy-fill');
+                occupancyBars.forEach(bar => {
+                    const currentOccupancy = parseInt(bar.style.width);
+                    if (currentOccupancy > 80) {
+                        bar.classList.add('high');
+                        bar.classList.remove('medium');
+                    } else if (currentOccupancy > 60) {
+                        bar.classList.add('medium');
+                        bar.classList.remove('high');
+                    } else {
+                        bar.classList.remove('high', 'medium');
+                    }
+                });
+            }
+
+            // Initial update
+            updateOccupancy();
+
+            // Update every 5 minutes
+            setInterval(updateOccupancy, 300000);
+        });
+    </script>
+</body>
+</html> 
